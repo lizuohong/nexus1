@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block style %}/static/login.css{% endblock %}
+
+{% block body %}
+<div id="midpoint">
+  <div id="offset">
+    {% block inputbox %}
+    <form method="post" action='{% block target %}/login{% endblock %}'>
+      <div id="inputbox">
+        <div>
+          {% block user %}
+          <label>用户名</label>
+          <input name="username" id="username" required>
+          {% endblock %}
+        </div>
+        <div>
+          <label>密码</label>
+          <input type="password" name="password" id="password" required>
+        </div>
+        <div>
+          {% block buttons %}
+          <input type="submit" value="登录">
+          <input type="button" value="注册" onclick="location.href='/signup'">
+          {% endblock %}
+        </div>
+      </div>
+    </form>
+  {% endblock %}
+    
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  {% endwith %}
+  </div>
+</div>
+{% endblock %}

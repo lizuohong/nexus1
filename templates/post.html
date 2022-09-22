@@ -1,0 +1,11 @@
+{% extends 'login.html' %}
+
+{% block inputbox %}
+<form method="post" action="/post/new">
+  <div id="offset2">
+    <textarea name="title" class="post" id="title" placeholder="标题"></textarea>
+    <textarea name="text" class="post" id="text"></textarea>
+    <div class="right"><button>发布</button></div>
+  </div>
+</form>
+{% endblock %}

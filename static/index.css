@@ -1,0 +1,69 @@
+h1 {
+  background: white;
+}
+header {
+  background: mediumpurple;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+a#user {
+  background: white;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  /* display: inline; */
+}
+div.post {
+  position: relative;
+  left: 15%;
+  width: 70%;
+  border: thin solid
+}
+div#logo {
+  /* max-width: 30em; */
+  display: inline-flex;
+}
+div#login {
+  position: relative;
+  /* right: 1em;
+  background: white; */
+}
+div#user_actions {
+  display: flex;
+  flex-direction: column;
+}
+p {
+  position: relative;
+  left: 1em;
+}
+p.post {
+  border: thin solid;
+  width: 95%
+}
+.extend {
+  display: flex;
+  justify-content: space-between;
+}
+span.author {
+  position: relative;
+  left: 1em;
+}
+span.post_del_span {
+  position: relative;
+  right: 2em;
+}
+button {
+  margin: 0.5em;
+}
+button.raw {
+  margin: 0;
+}
+button.stack {
+  margin: 0.2em;
+}
+form {
+  margin: 0;
+}

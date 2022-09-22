@@ -1,0 +1,13 @@
+<!-- base.html: title and other boilerplate code goes here -->
+
+<head>
+  {% block head %}
+  <title>Our Message Board</title>
+  <link href="{% block style %}/static/index.css{% endblock %}" rel="stylesheet">
+  {% endblock %}
+</head>
+
+<body>
+  {% block body %}
+  {% endblock %}
+</body>

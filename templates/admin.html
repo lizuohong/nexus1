@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block head %}
+  {{ super() }}
+  <style>
+    table {
+      border: 1px solid;
+    }
+    td {
+      width: 8em;
+      text-align: center;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<header>
+  <div class=extend>
+    <span class=flex>
+      <em style="background: white">With great power comes great responsibility.</em>
+    </span>
+    <button onclick="location.href='/logout'">登出</button>
+  </div>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      {% for col in th %}
+        {# 过滤掉password列 #}
+        {% if col != 'password' %}
+        <th>{{ col }}</th>
+        {% endif %}
+      {% endfor %}
+      <th>actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for user in users %}
+    <tr>
+      {% for i in range(ncol) %}
+        {% if th[i] != 'password' %}
+          {% if (th[i]=='created_on' or th[i]=='updated_on') and user[i] %}
+            <td>{{ user[i].split('.')[0] }}</td>
+          {% else %}
+            <td>{{ user[i] }}</td>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <th>
+        <button class=raw onclick="location.href='/user/{{ user.user_id }}'">查看</button>
+      </th>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

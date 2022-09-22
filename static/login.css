@@ -1,0 +1,52 @@
+div {
+  padding: 0.5em;
+  /* border: 1px dashed; */
+}
+div#midpoint {
+  /* width: 15em;
+  height: 10em; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* left: 150; */
+  /* border: 1px solid; */
+}
+div#offset {
+  position: absolute;
+  top: -8em;
+  left: -8em;
+}
+div#offset2 {
+  position: relative;
+  left: -4em;
+}
+div#inputbox {
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+div.right {
+  /* position: absolute; */
+  float: right;
+}
+form {
+  margin: 0;
+  /* border: 1px dashed; */
+}
+ul.flashes {
+  /* float: left; */
+  color: red;
+}
+li.ok {
+  color: green;
+}
+.post {
+  min-width: 24em;
+}
+#title {
+  max-height: 2em;
+}
+#text {
+  min-height: 8em;
+}

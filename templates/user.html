@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block h1 %}{{ username }}的页面{% endblock %}
+
+{% block user_actions %}
+<div id="user_actions">
+  <button class=stack onclick="location.href='/user/{{ uid }}/update'">修改密码</button>
+  <button class=stack form="user_del_form" onclick="return confirm('确认删除该用户？')">删除用户</button>
+  <form id="user_del_form" method="post" action="/user/{{ uid }}/delete"></form>
+</div>
+{% endblock %}
+
+
+{% block post_delete %}
+<span class="post_del_span">
+  <button class=raw form="post_del_form" onclick="return confirm('确认删除该留言？')">删除</button>
+  <form id="post_del_form" method="post" action="/post/delete">
+    {% set pidStart = super().find('>') %}
+    {% set pidEnd = super().rfind('<') %}
+    <input type="hidden" name="pid" value="{{ super()[pidStart+1:pidEnd] }}">
+  </form>
+</span>
+{% endblock %}
