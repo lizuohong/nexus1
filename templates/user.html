@@ -3,13 +3,12 @@
 {% block h1 %}{{ username }}的页面{% endblock %}
 
 {% block user_actions %}
-<div id="user_actions">
+<div class=flex_col>
   <button class=stack onclick="location.href='/user/{{ uid }}/update'">修改密码</button>
   <button class=stack form="user_del_form" onclick="return confirm('确认删除该用户？')">删除用户</button>
   <form id="user_del_form" method="post" action="/user/{{ uid }}/delete"></form>
 </div>
 {% endblock %}
-
 
 {% block post_delete %}
 <span class="post_del_span">

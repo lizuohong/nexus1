@@ -1,49 +1,54 @@
 {% extends "base.html" %}
   
 {% block body %}
-  <header>
-    <div class=extend>
-      <div class="flex" id="logo">
-        <a href="/"><img src="/static/logo.png"></a>
-        <a href="/"><h1>{% block h1 %}我们的留言板{% endblock %}</h1></a>
-      </div>
-
-      <span class=flex>
-        <div class="flex" id="login">
-        {% if not session.get('uid') and not session.get('admin') %}
-          <button onclick="location.href='/login'">登录</button>
-          <button onclick="location.href='/signup'">注册</button>
-        {% else %}
-          {% if session.get('admin') %}
-            <a id=user href="/admin">欢迎你，管理员&nbsp;</a>
-          {% else %}
-            <a id=user href="/user/{{ session.get('uid') }}">欢迎你，{{ session.get('username') }}！</a>
-          {% endif %}
-
-          {% block user_actions %}
-            <button onclick="location.href='/post/new'">新留言</button>
-          {% endblock %}
-          
-          <button onclick="location.href='/logout'">登出</button>
-        {% endif %}
-        </div>
-      </span>
-
-    </div>
-  </header>
-
-  <br>
-
-  {% for post in posts %}
-  <div class=post>
-    <p><b>{{ post.title }}</b></p>
-    <p>{{ post.text }}</p>
-    <p class=extend>
-      <span class=author>{{ post.username }} 发表于 {{ post.date.split('.')[0] }}</span>
-      {% block post_delete scoped %}<span hidden>{{ post.post_id }}</span>{% endblock %}
-    </p>
+<header class=extend>
+  <div class="flex" id="logo">
+    <a href="/"><img src="/static/logo.png"></a>
+    <a href="/"><h1>{% block h1 %}我们的留言板{% endblock %}</h1></a>
   </div>
-  <br>
-  {% endfor %}
+
+  <span class=flex>
+    <div class="flex" id="login">
+    {% if not session.get('uid') and not session.get('admin') %}
+      <button onclick="location.href='/login'">登录</button>
+      <button onclick="location.href='/signup'">注册</button>
+    {% else %}
+      {% if session.get('admin') %}
+        <a id=user href="/admin">欢迎你，管理员&nbsp;</a>
+      {% else %}
+        <a id=user href="/user/{{ session.get('uid') }}">欢迎你，{{ session.get('username') }}！</a>
+      {% endif %}
+
+      {% block user_actions %}
+        <button onclick="location.href='/post/new'">新留言</button>
+      {% endblock %}
+      
+      <button onclick="location.href='/logout'">登出</button>
+    {% endif %}
+    </div>
+  </span>
+</header>
+
+<br>
+{% for post in posts %}
+<div class=post>
+  <p><b>{{ post.title }}</b></p>
+  <p>{{ post.text }}</p>
+  <p class=extend>
+    <span class=author>{{ post.username }} 发表于 {{ post.date.split('.')[0] }}</span>
+    {% block post_delete scoped %}<span hidden>{{ post.post_id }}</span>{% endblock %}
+  </p>
+</div>
+<br>
+{% endfor %}
+
+<footer class=flex_col>
+  <div>
+    <form method=get action=/>
+      转至第&nbsp;<input id=page name=page value=1>&nbsp;页
+      <input type="submit" value="跳转">
+    </form>
+  </div>
+</footer>
 
 {% endblock %}

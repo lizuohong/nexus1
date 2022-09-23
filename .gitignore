@@ -5,4 +5,5 @@ Scripts
 include
 pyvenv.cfg
 *.db
+*.exe
 gitproxy

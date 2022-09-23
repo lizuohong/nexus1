@@ -1,3 +1,18 @@
+.extend {
+  display: flex;
+  justify-content: space-between;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  /* display: inline; */
+}
+.flex_col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 h1 {
   background: white;
 }
@@ -10,11 +25,6 @@ a {
 }
 a#user {
   background: white;
-}
-.flex {
-  display: flex;
-  align-items: center;
-  /* display: inline; */
 }
 div.post {
   position: relative;
@@ -31,10 +41,6 @@ div#login {
   /* right: 1em;
   background: white; */
 }
-div#user_actions {
-  display: flex;
-  flex-direction: column;
-}
 p {
   position: relative;
   left: 1em;
@@ -42,10 +48,6 @@ p {
 p.post {
   border: thin solid;
   width: 95%
-}
-.extend {
-  display: flex;
-  justify-content: space-between;
 }
 span.author {
   position: relative;
@@ -66,4 +68,7 @@ button.stack {
 }
 form {
   margin: 0;
+}
+input#page {
+  width: 3em;
 }

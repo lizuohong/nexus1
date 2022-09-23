@@ -10,8 +10,15 @@ app.secret_key = 'dev'
 
 @app.route('/')
 def index():
-    query = "SELECT * from post p, user u where p.user = u.user_id order by p.date desc"
-    return render_template('index.html', posts=query_db(query))
+    total = int(query_db('select count(*) from post', one=True)[0])
+    page_code = request.args.get('page')
+    page = int(page_code) if page_code else 1
+    start = 10 * (page - 1)
+    if request.args.get('start'):
+        start = int(request.args.get('start'))
+    
+    query = "SELECT * from post p, user u where p.user = u.user_id order by p.date desc limit ?, ?"
+    return render_template('index.html', posts=query_db(query, (str(start), str(start+10))))
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
