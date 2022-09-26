@@ -1,9 +1,9 @@
 from flask import Flask, flash, abort, g, request, redirect, render_template, session
 from werkzeug.security import check_password_hash, generate_password_hash
-import sqlite3
-import functools
-from helpers import *
 from datetime import datetime
+import sqlite3, functools, math
+from helpers import *
+
 
 app = Flask('nexus1')
 app.secret_key = 'dev'
@@ -11,8 +11,18 @@ app.secret_key = 'dev'
 @app.route('/')
 def index():
     total = int(query_db('select count(*) from post', one=True)[0])
-    page_code = request.args.get('page')
-    page = int(page_code) if page_code else 1
+    page_param = request.args.get('page')
+    page = int(page_param) if page_param else 1
+    page_max = math.ceil(total/10)
+    
+    if page < 1:
+        return redirect('/?page=1')
+    elif page > page_max:
+        return redirect('/?page=%d' % page_max)
+    else:
+        session['total'] = total
+        session['page'] = page
+
     start = 10 * (page - 1)
     if request.args.get('start'):
         start = int(request.args.get('start'))
