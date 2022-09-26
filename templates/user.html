@@ -20,3 +20,8 @@
   </form>
 </span>
 {% endblock %}
+
+{% block pager %}
+<button class=raw onclick="location.href='/user/{{ uid }}?page={{ (session.get('page')-1).__str__() }}'">上页</button>
+<button class=raw onclick="location.href='/user/{{ uid }}?page={{ (session.get('page')+1).__str__() }}'">下页</button>
+{% endblock %}

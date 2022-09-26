@@ -30,6 +30,24 @@
 </header>
 
 <br>
+<nav class=flex_col>
+  {% block navigation %}
+  <div>
+    共&nbsp;{{ session.get('total').__str__() }}&nbsp;条记录&nbsp;
+    第&nbsp;{{ session.get('page').__str__() }}&nbsp;页&nbsp;
+    {% block pager %}
+      <button class=raw onclick="location.href='/?page={{ (session.get('page')-1).__str__() }}'">上页</button>
+      <button class=raw onclick="location.href='/?page={{ (session.get('page')+1).__str__() }}'">下页</button>
+    {% endblock %}
+    <form method=get action=/ style="display: inline">
+      至第&nbsp;<input id=page name=page value=1>&nbsp;页
+      <input type="submit" value="跳转">
+    </form>
+  </div>
+  {% endblock %}
+</nav>
+
+<br>
 {% for post in posts %}
 <div class=post>
   <p><b>{{ post.title }}</b></p>
@@ -43,16 +61,7 @@
 {% endfor %}
 
 <footer class=flex_col>
-  <div>
-    共&nbsp;{{ session.get('total').__str__() }}&nbsp;条记录&nbsp;
-    第&nbsp;{{ session.get('page').__str__() }}&nbsp;页&nbsp;
-    <button class=raw onclick="location.href='/?page={{ (session.get('page')-1).__str__() }}'">上页</button>
-    <button class=raw onclick="location.href='/?page={{ (session.get('page')+1).__str__() }}'">下页</button>
-    <form method=get action=/ style="display: inline">
-      至第&nbsp;<input id=page name=page value=1>&nbsp;页
-      <input type="submit" value="跳转">
-    </form>
-  </div>
+  {{ self.navigation() }}
 </footer>
 
 {% endblock %}

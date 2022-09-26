@@ -14,7 +14,7 @@ def index():
     page_param = request.args.get('page')
     page = int(page_param) if page_param else 1
     page_max = math.ceil(total/10)
-    
+
     if page < 1:
         return redirect('/?page=1')
     elif page > page_max:
@@ -129,14 +129,37 @@ def admin():
 def user(uid):
     if int(uid) != session.get('uid') and not session.get('admin'):
         abort(403)
-    query = "SELECT * from post p, user u where p.user = u.user_id and p.user = ? order by date desc"
+    
     res, ok = get_name_from_id(uid)
     if not ok:
         return res
     else:
         username = res
+
+    total = int(query_db('select count(*) from post p, user u where p.user = u.user_id\
+                            and p.user = ?', (uid,), one=True)[0])
+    page_param = request.args.get('page')
+    page = int(page_param) if page_param else 1
+    page_max = math.ceil(total/10)
     
-    return render_template('user.html', posts=query_db(query, (uid,)), uid=uid, username=username)
+    if page < 1:
+        return redirect('/user/%s?page=1' % uid)
+    elif page > page_max:
+        return redirect('/user/%s?page=%d' % (uid, page_max))
+    else:
+        session['total'] = total
+        session['page'] = page
+
+    start = 10 * (page - 1)
+    if request.args.get('start'):
+        start = int(request.args.get('start'))
+
+    query = "SELECT * from post p, user u where p.user = u.user_id and p.user = ?\
+                order by p.date desc limit ?, ?"
+    return render_template('user.html', 
+                            posts=query_db(query, (uid, str(start), str(start+10))), 
+                            uid=uid, 
+                            username=username)
 
 @app.route('/user/<uid>/update', methods=('post', 'get'))
 def user_update(uid):
